@@ -29,14 +29,14 @@ namespace Pierre.Controllers
     [HttpPost]
     public ActionResult Create(Treat treat)
     {
-      _db.Categories.Add(treat);
+      _db.Treats.Add(treat);
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
 
     public ActionResult Details(int id)
     {
-      var thisTreat = _db.Categories
+      var thisTreat = _db.Treats
           .Include(treat => treat.Flavors)
           .ThenInclude(join => join.Flavor)
           .FirstOrDefault(treat => treat.TreatId == id);
@@ -45,7 +45,7 @@ namespace Pierre.Controllers
 
     public ActionResult Edit(int id)
     {
-      var thisTreat = _db.Categories.FirstOrDefault(treat => treat.TreatId == id);
+      var thisTreat = _db.Treats.FirstOrDefault(treat => treat.TreatId == id);
       return View(thisTreat);
     }
 
@@ -59,15 +59,15 @@ namespace Pierre.Controllers
 
     public ActionResult Delete(int id)
     {
-      var thisTreat = _db.Categories.FirstOrDefault(treat => treat.TreatId == id);
+      var thisTreat = _db.Treats.FirstOrDefault(treat => treat.TreatId == id);
       return View(thisTreat);
     }
 
     [HttpPost, ActionName("Delete")]
     public ActionResult DeleteConfirmed(int id)
     {
-      var thisTreat = _db.Categories.FirstOrDefault(treat => treat.TreatId == id);
-      _db.Categories.Remove(thisTreat);
+      var thisTreat = _db.Treats.FirstOrDefault(treat => treat.TreatId == id);
+      _db.Treats.Remove(thisTreat);
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
